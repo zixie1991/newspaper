@@ -8,6 +8,7 @@ import logging
 import copy
 import os
 import glob
+import re
 
 from . import images
 from . import network
@@ -266,10 +267,13 @@ class Article(object):
             raise ArticleException('must parse article before checking \
                                     if it\'s body is valid!')
         meta_type = self.extractor.get_meta_type(self.clean_doc)
-        wordcount = self.text.split(' ')
-        sentcount = self.text.split('.')
 
-        if meta_type == 'article' and wordcount > (self.config.MIN_WORD_COUNT):
+        # 混合字串统计
+        re_zh = re.compile(u'[\u1100-\uFFFDh]+?')
+        wordcount = re_zh.sub(' a ', self.text).split(' ') # replace the zh with the word a
+        sentcount = re.split('.|。', self.text)
+
+        if meta_type == 'article' and len(wordcount) > (self.config.MIN_WORD_COUNT):
             log.debug('%s verified for article and wc' % self.url)
             return True
 
