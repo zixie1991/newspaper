@@ -42,7 +42,7 @@ class Configuration(object):
         self.memoize_articles = True
 
         # Set this to false if you don't care about getting images
-        self.fetch_images = True
+        self.fetch_images = False
         self.image_dimension_ration = 16/9.0
 
         # Don't toggle this variable, done internally
