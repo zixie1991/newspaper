@@ -176,6 +176,7 @@ class Article(object):
         authors = self.extractor.get_authors(self.clean_doc)
         self.set_authors(authors)
 
+        """
         meta_lang = self.extractor.get_meta_lang(self.clean_doc)
         self.set_meta_language(meta_lang)
 
@@ -203,6 +204,7 @@ class Article(object):
 
         meta_data = self.extractor.get_meta_data(self.clean_doc)
         self.set_meta_data(meta_data)
+        """
 
         self.publish_date = self.extractor.get_publishing_date(
             self.url,
@@ -214,8 +216,10 @@ class Article(object):
         text = u''
         self.top_node = self.extractor.calculate_best_node(self.doc)
         if self.top_node is not None:
+            """
             video_extractor = VideoExtractor(self.config, self.top_node)
             self.set_movies(video_extractor.get_videos())
+            """
 
             self.top_node = self.extractor.post_cleanup(self.top_node)
             self.clean_top_node = copy.deepcopy(self.top_node)
