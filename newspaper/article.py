@@ -157,17 +157,18 @@ class Article(object):
             raise ArticleException()
 
         self.doc = self.config.get_parser().fromstring(self.html)
-        self.clean_doc = copy.deepcopy(self.doc)
+        self.clean_doc = self.doc
+        # self.clean_doc = copy.deepcopy(self.doc)
 
         if self.doc is None:
             # `parse` call failed, return nothing
             return
 
         # TODO: Fix this, sync in our fix_url() method
-        parse_candidate = self.get_parse_candidate()
-        self.link_hash = parse_candidate.link_hash  # MD5
+        # parse_candidate = self.get_parse_candidate()
+        # self.link_hash = parse_candidate.link_hash  # MD5
 
-        document_cleaner = DocumentCleaner(self.config)
+        # document_cleaner = DocumentCleaner(self.config)
         output_formatter = OutputFormatter(self.config)
 
         title = self.extractor.get_title(self.clean_doc)
@@ -222,7 +223,7 @@ class Article(object):
             """
 
             self.top_node = self.extractor.post_cleanup(self.top_node)
-            self.clean_top_node = copy.deepcopy(self.top_node)
+            # self.clean_top_node = copy.deepcopy(self.top_node)
 
             text, article_html = output_formatter.get_formatted(
                 self.top_node)
@@ -233,7 +234,7 @@ class Article(object):
             self.fetch_images()
 
         self.is_parsed = True
-        self.release_resources()
+        # self.release_resources()
 
     def fetch_images(self):
         if self.clean_doc is not None:
@@ -393,7 +394,8 @@ class Article(object):
         """Encode HTML before setting it
         """
         self.is_downloaded = True
-        self.html = get_unicode(html, is_html=True)
+        self.html = html
+        #　self.html = get_unicode(html, is_html=True)
 
     def set_article_html(self, article_html):
         """Sets the HTML of just the article's `top_node`
