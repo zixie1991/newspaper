@@ -157,6 +157,9 @@ class Article(object):
             raise ArticleException()
 
         self.doc = self.config.get_parser().fromstring(self.html)
+
+        self.remove_advertisement(self.doc)
+
         self.clean_doc = self.doc
         # self.clean_doc = copy.deepcopy(self.doc)
 
@@ -485,3 +488,26 @@ class Article(object):
         """
         movie_urls = [o.src for o in movie_objects if o and o.src]
         self.movies = movie_urls
+
+    def remove_advertisement(self, node):
+        '''
+        广告或推广链接
+        <p><a href="">a</a></p>
+        <p><a href="">b</a></p>
+        <p><a href="">c</a></p>
+        '''
+        for tag in self.config.get_parser().xpath_re(node, '//p/a'):
+            tag.getparent().remove(tag)
+
+        '''
+        <ul>
+            <li><a href="">a</a></li>
+            <li><a href="">b</a></li>
+            <li><a href="">c</a></li>
+        </ul>
+        '''
+        for tag in self.config.get_parser().xpath_re(node, '//li/a'):
+            tag.getparent().remove(tag)
+
+        for tag in self.config.get_parser().xpath_re(node, '//td/a'):
+            tag.getparent().remove(tag)
