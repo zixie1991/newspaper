@@ -219,9 +219,8 @@ class ContentExtractor(object):
         """Fetch the article title and analyze it
         """
         title = ''
-        try:
-            title_element = self.parser.getElementsByTag(doc, tag='h1')
-        except:
+        title_element = self.parser.getElementsByTag(doc, tag='h1')
+        if title_element is None or len(title_element) == 0:
             title_element = self.parser.getElementsByTag(doc, tag='title')
         # no title found
         if title_element is None or len(title_element) == 0:
@@ -273,7 +272,7 @@ class ContentExtractor(object):
         # find the largest title piece
         for i in range(len(title_pieces)):
             current = title_pieces[i]
-            if len(current) > large_text_length:
+            if len(current.encode('utf-8')) > large_text_length:
                 large_text_length = len(current)
                 large_text_index = i
 
