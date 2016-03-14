@@ -228,6 +228,7 @@ class ContentExtractor(object):
 
         # title elem found
         title_text = self.parser.getText(title_element[0])
+        '''
         used_delimeter = False
 
         # split title with |
@@ -243,6 +244,7 @@ class ContentExtractor(object):
         # split title with _
         if not used_delimeter and '_' in title_text:
             title_text = self.split_title(title_text, UNDERSCORE_SPLITTER)
+        '''
 
         # split title with /
         '''
