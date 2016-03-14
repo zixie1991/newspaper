@@ -252,9 +252,11 @@ class ContentExtractor(object):
         '''
 
         # split title with »
+        '''
         if not used_delimeter and u'»' in title_text:
             title_text = self.split_title(title_text, ARROWS_SPLITTER)
             used_delimeter = True
+        '''
 
         # split title with :
         '''
