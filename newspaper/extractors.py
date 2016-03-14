@@ -245,9 +245,11 @@ class ContentExtractor(object):
             title_text = self.split_title(title_text, UNDERSCORE_SPLITTER)
 
         # split title with /
+        '''
         if not used_delimeter and '/' in title_text:
             title_text = self.split_title(title_text, SLASH_SPLITTER)
             used_delimeter = True
+        '''
 
         # split title with »
         if not used_delimeter and u'»' in title_text:
@@ -255,9 +257,11 @@ class ContentExtractor(object):
             used_delimeter = True
 
         # split title with :
+        '''
         if not used_delimeter and ':' in title_text:
             title_text = self.split_title(title_text, COLON_SPLITTER)
             used_delimeter = True
+        '''
 
         title = MOTLEY_REPLACEMENT.replaceAll(title_text)
         return title
