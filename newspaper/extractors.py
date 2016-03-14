@@ -219,7 +219,10 @@ class ContentExtractor(object):
         """Fetch the article title and analyze it
         """
         title = ''
-        title_element = self.parser.getElementsByTag(doc, tag='title')
+        try:
+            title_element = self.parser.getElementsByTag(doc, tag='h1')
+        except:
+            title_element = self.parser.getElementsByTag(doc, tag='title')
         # no title found
         if title_element is None or len(title_element) == 0:
             return title
